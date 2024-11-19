@@ -47,6 +47,16 @@ void loop() {
     left();
   )
 
+  //Spin if line under all sensors
+  if (digitalRead(L) == LOW) && (digitalRead(M) == LOW) && (digitalRead(R) == LOW) (
+    spinClockwise();
+  )
+
+  //Spin if line undetected
+  if (digitalRead(L) == HIGH) && (digitalRead(M) == HIGH) && (digitalRead(R) == HIGH) (
+    spinClockwise();
+  )
+
   delay(10);
 }
 
@@ -73,5 +83,12 @@ void left() {
 void right() {
   analogWrite(rSpeed, 0);
   analogWrite(lSpeed, 250);
+  digitalSpeed(lDir, HIGH);
+}
+
+void spinClockwise() {
+  analogWrite(rSpeed, 250);
+  analogWrite(lSpeed, 250);
+  digitalSpeed(rDir, LOW);
   digitalSpeed(lDir, HIGH);
 }
