@@ -13,14 +13,65 @@ const int speed = 125;
 #define R analogRead(A0)
 
 void setup() {
+
+  //wheels
+  pinMode(rSpeed, OUTPUT);
+  pinMode(lSpeed, OUTPUT);
+  pinMode(rDir, OUTPUT);
+  pinMode(lDir, OUTPUT);
+
+  //sensors recieving
+  pinMode(L, INPUT);
+  pinMode(M, INPUT);
+  pinMode(R, INPUT);
+
   Serial.begin(9600);
   analogWrite(speedPin, speed);
 }
 
-void loop() { //your logic goes here
+//Core logic
+void loop() {
+
+  //Go forward if line under middle sensor
+  if (digitalRead(M) == LOW) (
+    forward();
+  )
+
+  //Go right if line under right sensor
+  if (digitalRead(R) == LOW) (
+    right();
+  )
+
+  //Go left if line under left sensor
+  if (digitalRead(L) == LOW) (
+    left();
+  )
+
+  delay(10);
+}
+
+void forward() {
   analogWrite(rSpeed, 250);
   analogWrite(lSpeed, 250);
   digitalSpeed(rDir, HIGH);
   digitalSpeed(lDir, HIGH);
-  delay(10);
+}
+
+void backward() {
+  analogWrite(rSpeed, 250);
+  analogWrite(lSpeed, 250);
+  digitalSpeed(rDir, LOW);
+  digitalSpeed(lDir, LOW);
+}
+
+void left() {
+  analogWrite(rSpeed, 250);
+  analogWrite(lSpeed, 0);
+  digitalSpeed(rDir, HIGH);
+}
+
+void right() {
+  analogWrite(rSpeed, 0);
+  analogWrite(lSpeed, 250);
+  digitalSpeed(lDir, HIGH);
 }
